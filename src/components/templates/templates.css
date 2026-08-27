@@ -1,0 +1,216 @@
+.resume {
+  background: #fff;
+  color: #1e293b;
+  width: 794px;
+  min-height: 1123px;
+  margin: 0 auto;
+  box-shadow: 0 4px 24px rgba(15, 42, 107, 0.12);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Classic template */
+.classic-template {
+  padding: 48px 56px;
+}
+
+.classic-header {
+  border-bottom: 3px solid var(--color-primary);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+
+.classic-header h1 {
+  font-size: 2rem;
+  color: var(--color-primary-dark);
+}
+
+.classic-title {
+  color: var(--color-primary);
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.classic-contact {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: #475569;
+}
+
+.classic-section {
+  margin-bottom: 22px;
+}
+
+.classic-section h2 {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-primary);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+
+.classic-entry {
+  margin-bottom: 14px;
+}
+
+.classic-entry-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.92rem;
+  color: #1e293b;
+}
+
+.classic-entry-sub {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.classic-entry-desc {
+  margin-top: 6px;
+  font-size: 0.88rem;
+  color: #334155;
+  white-space: pre-line;
+}
+
+/* Modern template */
+.modern-template {
+  display: flex;
+}
+
+.modern-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background: var(--color-primary-dark);
+  color: #fff;
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.modern-sidebar h1 {
+  font-size: 1.4rem;
+  line-height: 1.25;
+}
+
+.modern-title {
+  color: var(--color-accent);
+  font-weight: 600;
+  margin-top: 6px;
+  font-size: 0.9rem;
+}
+
+.modern-sidebar-section h3 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  margin-bottom: 10px;
+}
+
+.modern-sidebar-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.modern-skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.modern-skill-list span {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+}
+
+.modern-edu-entry {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 10px;
+}
+
+.modern-main {
+  flex: 1;
+  padding: 40px 40px;
+}
+
+.modern-section {
+  margin-bottom: 24px;
+}
+
+.modern-section h2 {
+  font-size: 1rem;
+  color: var(--color-primary-dark);
+  border-bottom: 2px solid var(--color-border);
+  padding-bottom: 8px;
+  margin-bottom: 14px;
+}
+
+.modern-entry {
+  margin-bottom: 16px;
+}
+
+.modern-entry-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.92rem;
+  color: #1e293b;
+}
+
+.modern-entry-sub {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.modern-entry-desc {
+  margin-top: 6px;
+  font-size: 0.88rem;
+  color: #334155;
+  white-space: pre-line;
+}
+
+/* Print rules: only the resume itself should print */
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  #resume-print-area,
+  #resume-print-area * {
+    visibility: visible;
+  }
+
+  #resume-print-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  .resume {
+    box-shadow: none;
+    margin: 0;
+    width: 100%;
+    min-height: auto;
+  }
+}

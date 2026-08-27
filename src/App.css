@@ -1,0 +1,16 @@
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.app-content {
+  flex: 1;
+  padding: 40px 48px;
+  overflow-y: auto;
+}
+
+@media print {
+  .app-content {
+    padding: 0;
+  }
+}
