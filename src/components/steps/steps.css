@@ -175,6 +175,23 @@
 
 .preview-canvas {
   padding-bottom: 40px;
+  overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  .field-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .preview-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .chat-bubble {
+    max-width: 92%;
+  }
 }
 
 .chat-card {

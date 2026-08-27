@@ -175,3 +175,42 @@
     display: none;
   }
 }
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 240px;
+    z-index: 100;
+    transform: translateX(0);
+    transition: transform 0.25s ease;
+    box-shadow: 2px 0 16px rgba(0, 0, 0, 0.3);
+  }
+
+  .sidebar.collapsed {
+    width: 240px;
+    padding: 24px 16px;
+    transform: translateX(-100%);
+  }
+
+  .sidebar.collapsed .sidebar-brand-name,
+  .sidebar.collapsed .sidebar-nav-label,
+  .sidebar.collapsed .sidebar-reset .sidebar-nav-label {
+    display: block;
+  }
+
+  .sidebar.collapsed .sidebar-nav-item {
+    justify-content: flex-start;
+    padding: 12px 12px;
+  }
+
+  .sidebar.collapsed .sidebar-reset-icon {
+    display: none;
+  }
+
+  .sidebar-toggle {
+    display: none;
+  }
+}

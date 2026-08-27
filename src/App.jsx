@@ -15,11 +15,23 @@ import PreviewStep from './components/steps/PreviewStep.jsx'
 import { useLocalStorage } from './hooks/useLocalStorage.js'
 import { emptyResume, newExperienceEntry, newEducationEntry } from './data/emptyResume.js'
 
+const MOBILE_BREAKPOINT = 768
+
 export default function App() {
   const [resumeData, setResumeData] = useLocalStorage('resumeBuilderData', emptyResume)
   const [template, setTemplate] = useLocalStorage('resumeBuilderTemplate', () => 'classic')
   const [activeStep, setActiveStep] = useState('ai')
-  const [sidebarCollapsed, setSidebarCollapsed] = useLocalStorage('resumeBuilderSidebarCollapsed', () => false)
+  const [sidebarCollapsed, setSidebarCollapsed] = useLocalStorage(
+    'resumeBuilderSidebarCollapsed',
+    () => window.innerWidth <= MOBILE_BREAKPOINT
+  )
+
+  function handleStepChange(step) {
+    setActiveStep(step)
+    if (window.innerWidth <= MOBILE_BREAKPOINT) {
+      setSidebarCollapsed(true)
+    }
+  }
 
   function applyGeneratedResume(generated) {
     setResumeData({
@@ -81,9 +93,21 @@ export default function App() {
 
   return (
     <div className="app-shell">
+      <button
+        className="mobile-menu-btn"
+        onClick={() => setSidebarCollapsed((prev) => !prev)}
+        aria-label="Toggle menu"
+      >
+        &#9776;
+      </button>
+
+      {!sidebarCollapsed && (
+        <div className="sidebar-backdrop" onClick={() => setSidebarCollapsed(true)} />
+      )}
+
       <Sidebar
         activeStep={activeStep}
-        onStepChange={setActiveStep}
+        onStepChange={handleStepChange}
         onReset={resetResume}
         collapsed={sidebarCollapsed}
         onToggleCollapse={() => setSidebarCollapsed((prev) => !prev)}
