@@ -34,6 +34,12 @@ const EXTRACT_SYSTEM_PROMPT = `You extract structured resume data from a convers
 candidate. Use only information the candidate actually stated. Leave fields empty ("" or []) rather than
 guessing. Turn any raw descriptions of work into concise, achievement-focused resume bullet points.`
 
+const PARSE_SYSTEM_PROMPT = `You extract structured resume data from the raw text of an existing resume document
+(text was pulled from a PDF or Word file, so spacing/line breaks may be messy — read past that). Use only
+information present in the text. Leave a field empty ("" or []) rather than guessing or inventing anything.
+Tidy work-history bullet points into concise, achievement-focused resume bullets, but do not fabricate
+accomplishments that aren't in the source text.`
+
 function isValidMessages(messages) {
   return (
     Array.isArray(messages) &&
@@ -106,6 +112,43 @@ app.post('/api/extract', async (req, res) => {
         {
           role: 'user',
           content: 'Based on everything I told you, call record_resume now with my complete resume information.',
+        },
+      ],
+    })
+
+    const toolUse = response.content.find((block) => block.type === 'tool_use')
+    if (!toolUse) {
+      return res.status(502).json({ error: 'The AI did not return structured resume data. Try again.' })
+    }
+    res.json({ resume: toolUse.input })
+  } catch (err) {
+    handleAnthropicError(err, res)
+  }
+})
+
+app.post('/api/parse-resume', async (req, res) => {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    return res.status(500).json({ error: 'Server is missing ANTHROPIC_API_KEY. See server/.env.example.' })
+  }
+  const { text } = req.body
+  if (typeof text !== 'string' || !text.trim()) {
+    return res.status(400).json({ error: 'text must be a non-empty string' })
+  }
+  if (text.length > 50000) {
+    return res.status(400).json({ error: 'Resume text is too long.' })
+  }
+
+  try {
+    const response = await client.messages.create({
+      model: MODEL,
+      max_tokens: 4096,
+      system: PARSE_SYSTEM_PROMPT,
+      tools: [RECORD_RESUME_TOOL],
+      tool_choice: { type: 'tool', name: 'record_resume' },
+      messages: [
+        {
+          role: 'user',
+          content: `Here is the raw text extracted from my resume file:\n\n"""\n${text}\n"""\n\nCall record_resume with my complete resume information.`,
         },
       ],
     })

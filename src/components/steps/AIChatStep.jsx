@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocalStorage } from '../../hooks/useLocalStorage.js'
 import { emptyResume } from '../../data/emptyResume.js'
+import ResumeUpload from '../ResumeUpload.jsx'
 
 const GREETING =
   "Hi! I'll ask a few quick questions and build your resume as we go — this runs fully offline, no AI API needed. What's your full name?"
@@ -197,6 +198,8 @@ export default function AIChatStep({ onResumeGenerated }) {
         <h2>AI Assistant</h2>
         <p>Answer a few questions in the chat, then generate your resume — no API key needed.</p>
       </div>
+
+      <ResumeUpload onResumeParsed={onResumeGenerated} />
 
       <div className="chat-card">
         <div className="chat-log" ref={listRef}>

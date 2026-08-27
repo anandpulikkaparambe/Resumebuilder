@@ -194,6 +194,42 @@
   }
 }
 
+.resume-upload {
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.resume-upload-text {
+  flex: 1;
+  min-width: 200px;
+}
+
+.resume-upload-text p {
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+  margin-top: 2px;
+}
+
+.resume-upload-filename {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.resume-upload-success {
+  font-size: 0.85rem;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .resume-upload {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
 .chat-card {
   background: var(--color-bg);
   border: 1px solid var(--color-border);
