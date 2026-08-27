@@ -19,6 +19,7 @@ export default function App() {
   const [resumeData, setResumeData] = useLocalStorage('resumeBuilderData', emptyResume)
   const [template, setTemplate] = useLocalStorage('resumeBuilderTemplate', () => 'classic')
   const [activeStep, setActiveStep] = useState('ai')
+  const [sidebarCollapsed, setSidebarCollapsed] = useLocalStorage('resumeBuilderSidebarCollapsed', () => false)
 
   function applyGeneratedResume(generated) {
     setResumeData({
@@ -80,7 +81,13 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <Sidebar activeStep={activeStep} onStepChange={setActiveStep} onReset={resetResume} />
+      <Sidebar
+        activeStep={activeStep}
+        onStepChange={setActiveStep}
+        onReset={resetResume}
+        collapsed={sidebarCollapsed}
+        onToggleCollapse={() => setSidebarCollapsed((prev) => !prev)}
+      />
 
       <main className="app-content">
         {activeStep === 'ai' && <AIChatStep onResumeGenerated={applyGeneratedResume} />}
